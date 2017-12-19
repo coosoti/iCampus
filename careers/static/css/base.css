@@ -1,0 +1,61 @@
+@import url(http://fonts.googleapis.com/css?family=Ubuntu);
+
+h1, h2, h3, h4, h5 , h6 { 
+    font-family: 'Ubuntu', sans-serif; font-weight:normal;
+}
+
+
+body {
+    min-height: 2000px;
+    padding-top: 70px;
+}
+
+p {
+    font-size: 14px;
+}
+a {
+    text-decoration:none;
+    color:#5993bb;
+}
+
+a:hover {
+    color:#77b6e2;
+}
+
+a.button, input[type="submit"] {
+    color:#fff;
+    background:#5993bb;
+    border-radius:4px;
+    padding:10px 20px;
+    font-size:14px;
+    border:0;
+}
+
+a.button.light {
+    color:#666;
+    background:#ededed;
+}
+/*
+#sidebar {
+    position: fixed;
+}
+*/
+#sidebar ul li.selected {
+    background:#5993bb;
+    border-radius:4px;
+}
+
+#sidebar ul li.selected a {
+    color:#fff;
+}
+
+/* media-object images*/ 
+.cat-images {
+    height: 100px;
+    width: 100px;
+}
+
+#category-list>li {
+/*    padding-right: 5px;*/
+    padding-left: 10px; 
+}
