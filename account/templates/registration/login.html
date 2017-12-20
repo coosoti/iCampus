@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block page_content %}
+	<div>
+	    <div class="modal-dialog" role="document">
+	        <div class="modal-content">
+	            <div class="modal-header">
+	                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"></span></button>
+	                <h4 class="modal-title text-center" id="myModalLabel">Login</h4>
+	           </div>
+	        <div class="modal-body">
+		        <form action="{% url 'login' %}" method="post">
+					{{form|crispy }}
+					{% csrf_token %}
+					<input type="hidden" name="next" value="{{ next }}">
+					<p><input type="submit" name="Login"></p>		
+				</form>
+			</div>
+	        <div class="modal-footer">
+            </div>
+	    </div>    
+	</div>
+	
+{% endblock %}
+
+<!-- <div>
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Login</h4>
+           </div>
+        <div class="modal-body">
+	        <form action="{% url 'login' %}" method="post">
+				{{form|crispy }}
+				{% csrf_token %}
+				<input type="hidden" name="next" value="{{ next }}">
+				<p><input type="submit" name="Login"></p>		
+			</form>
+		</div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal"></button>
+        </div>
+    </div>    
+</div> -->
+
+<!-- <h1>Login Form</h1>
+	{% if form.errors %}
+		<p>
+			You username or password is incorrect. Please try again 
+		</p>
+	{% else %}
+		<p>Please log in using the following form</p>
+	{% endif %}
+	<form action="{% url 'login' %}" method="post">
+		{{form|crispy }}
+		{% csrf_token %}
+		<input type="hidden" name="next" value="{{ next }}">
+		<p><input type="submit" name="Login"></p>		
+	</form>		 -->
