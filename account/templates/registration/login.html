@@ -14,7 +14,9 @@
 					{{form|crispy }}
 					{% csrf_token %}
 					<input type="hidden" name="next" value="{{ next }}">
-					<p><input type="submit" name="Login"></p>		
+					<div class="form-group">
+						<p><input type="submit" value="Login"> | <a href="{% url 'password_reset' %}">Forgotten your password?</a></p>	
+					</div>	
 				</form>
 			</div>
 	        <div class="modal-footer">
