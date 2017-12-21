@@ -16,7 +16,7 @@
            <!--  <h3>{{ career.name }}</h3> -->
             <div class="caption">
                 <h3>{{ career.name }}</h3>
-                <ul id="myTab" class='nav nav-tabs nav-justified'>
+                <ul id="myTab" class='nav nav-tabs nav-justified '>
                     <li class="active"><a href="#overview" data-toggle="tab">Summary</a></li>
                     <li><a href="#duties" data-toggle="tab">Duties</a></li>
                     <li><a href="#education" data-toggle="tab">Learning Path</a></li>
@@ -24,19 +24,15 @@
                 </ul>
                 <div class="tab-content">
                     <div class="tab-pane fade in active" id="overview">
-                        <br>
                         <p>{{ career.summary|linebreaks }}</p>
                     </div>
                     <div class="tab-pane fade" id="duties">
-                        <br>
                         <p>{{ career.duties|linebreaks }}</p>
                     </div>
                     <div class="tab-pane fade" id="education">
-                        <br>
                         <p>{{ career.learning_path|linebreaks }}</p>
                     </div>
                     <div class="tab-pane fade" id="work-environment">
-                        <br>
                         <p>{{ career.work_environment|linebreaks }}</p>
                     </div>
                 </div>

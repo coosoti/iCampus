@@ -59,17 +59,20 @@
     {% endblock %}
 
     <!-- Javascript files -->
-    <script type="text/javascript" src="{% static 'js/jquery-3.2.1.min.js' %}""></script>
-    <script type="text/javascript" src="{% static 'bootstrap-3.3.7/js/bootstrap.min.js' %}""></script>
-    <script type="text/javascript" src="{% static 'js/sidebar.js' %}""></script>
-
+    <script type="text/javascript" src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'bootstrap-3.3.7/js/bootstrap.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/bootstrap-tabcollapse.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/sidebar.js' %}"></script>
     <script type="text/javascript">
         $(document).ready(function(){
             $(".comment-reply-btn").click(function(event){
-                event.preventDefault();
+                    event.preventDefault();
                 $(this).parent().next(".comment-reply").fadeToggle();
-            })
-        })
+            });
+        });
+    </script>
+    <script type="text/javascript">
+        $('#myTab').tabCollapse();
     </script>
     </body>
 </html>
