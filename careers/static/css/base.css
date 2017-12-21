@@ -59,3 +59,7 @@ a.button.light {
 /*    padding-right: 5px;*/
     padding-left: 10px; 
 }
+
+.comment-reply{
+    display:none;
+}

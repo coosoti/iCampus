@@ -8,9 +8,7 @@
         <link rel="stylesheet" href="{% static 'bootstrap-3.3.7/css/bootstrap.min.css' %}">
         <link rel="stylesheet" href="{% static 'font-awesome-4.7.0/css/font-awesome.min.css' %}">
         <link rel="stylesheet" href="{% static 'css/base.css' %}">
-        <script type="text/javascript" src="{% static 'js/jquery-3.2.1.min.js' %}""></script>
-        <script type="text/javascript" src="{% static 'bootstrap-3.3.7/js/bootstrap.min.js' %}""></script>
-        <script type="text/javascript" src="{% static 'js/sidebar.js' %}""></script>
+        
     </head>
 
     <body>
@@ -59,5 +57,19 @@
         {% block page_content %}{% endblock %}
     </div>
     {% endblock %}
+
+    <!-- Javascript files -->
+    <script type="text/javascript" src="{% static 'js/jquery-3.2.1.min.js' %}""></script>
+    <script type="text/javascript" src="{% static 'bootstrap-3.3.7/js/bootstrap.min.js' %}""></script>
+    <script type="text/javascript" src="{% static 'js/sidebar.js' %}""></script>
+
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $(".comment-reply-btn").click(function(event){
+                event.preventDefault();
+                $(this).parent().next(".comment-reply").fadeToggle();
+            })
+        })
+    </script>
     </body>
 </html>

@@ -1,5 +1,8 @@
 from django.core.urlresolvers import reverse
 from django.db import models
+from django.contrib.contenttypes.models import ContentType
+
+from comments.models import Comment
 
 
 class Category(models.Model):
@@ -36,6 +39,18 @@ class Career(models.Model):
 
     def get_absolute_url(self):
         return reverse('careers:career_detail', args=[self.id, self.slug])
+
+    @property
+    def comments(self):
+        instance = self
+        qs = Comment.objects.filter_by_instance(instance)
+        return qs
+
+    @property
+    def get_content_type(self):
+        instance = self
+        content_type = ContentType.objects.get_for_model(instance.__class__)
+        return content_type    
 
 
 

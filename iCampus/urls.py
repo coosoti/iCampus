@@ -21,6 +21,7 @@ from django.conf.urls.static import static
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^account/', include('account.urls')),
+     url(r'^comments/', include("comments.urls", namespace='comments')),
     url(r'^', include('careers.urls', namespace='careers')),
 ]
 if settings.DEBUG:
