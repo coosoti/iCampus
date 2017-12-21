@@ -75,6 +75,11 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'iCampus.wsgi.application'
 
+# Authentication
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+    'account.authentication.EmailAuthBackend',
+)
 
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
@@ -139,3 +144,9 @@ LOGOUT_URL = reverse_lazy('logout')
 
 # Email Settings
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+from django.contrib.messages import constants as messages
+
+MESSAGE_TAGS = {
+    messages.ERROR: 'danger'
+}
