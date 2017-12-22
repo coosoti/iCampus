@@ -41,6 +41,12 @@
 
         <p class='lead'>Comments</p>
             {{ comments.count }} Comments
+
+            <span class="count">
+                <span class="total">{{ total_views }}</span>
+            view{{ total_views|pluralize }}
+            </span>
+            
             {% if request.user.is_authenticated %}
             <form method="POST" action="."> {% csrf_token %}
                 {{ comment_form|crispy }}

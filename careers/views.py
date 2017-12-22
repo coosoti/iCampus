@@ -1,10 +1,19 @@
 from django.shortcuts import render, get_object_or_404
 from django.contrib.contenttypes.models import ContentType
 from django.http import HttpResponse, HttpResponseRedirect, Http404
+from django.conf import settings
 
 from .models import Category, Career
 from comments.forms import CommentForm
 from comments.models import Comment
+
+import redis
+
+# connect to redis
+r = redis.StrictRedis(host=settings.REDIS_HOST,
+	                  port=settings.REDIS_PORT,
+	                  db=settings.REDIS_DB)
+
 
 def all_careers(request, category_slug=None):
 	category = None
@@ -54,13 +63,11 @@ def career_detail(request, id, slug):
 							parent = parent_obj,
 						)
 		return HttpResponseRedirect(new_comment.content_object.get_absolute_url())
-	comments = instance.comments	
-
-
-
-
+	comments = instance.comments
+	total_views = r.incr('career:{}:views'.format(career.id))
 	return render(request, 
 				  'careers/detail.html',
 				  {'career': career,
 				  'comments': comments,
-				  'comment_form': form })
+				  'comment_form': form,
+				  'total_views': total_views })
