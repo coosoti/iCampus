@@ -1,6 +1,8 @@
 {% extends 'base.html' %}
 {% load crispy_forms_tags %}
 
+{% block title %} iCampus - {{ career.name }}{% endblock %}
+
 {% block page_content %}
 <div class="row">
     <div class="col-sm-8">
@@ -46,7 +48,7 @@
                 <span class="total">{{ total_views }}</span>
             view{{ total_views|pluralize }}
             </span>
-            
+
             {% if request.user.is_authenticated %}
             <form method="POST" action="."> {% csrf_token %}
                 {{ comment_form|crispy }}
