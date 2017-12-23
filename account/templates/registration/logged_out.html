@@ -1,5 +1,7 @@
 {% extends 'account/base.html' %}
 
+{% block title %} Goodbye - iCampus{% endblock %}
+
 {% block page_content %}
 
     <div class="modal-dialog" role="document">
@@ -11,6 +13,9 @@
             <div class="modal-body">
 		        <p class="text-center">You have been successfully logged out.</p>
 		        <div class="text-center">
+                    <p>Next ?</p>
+                    <button class="btn btn-default"><a href="{% url 'careers:all_careers' %}">iCampus Home</a></button><br><br>
+                    <p>OR</p>
 					<button class="btn btn-default"><a href="{% url 'login' %}">Login</a></button>
 				</div>
 			</div>
