@@ -26,7 +26,8 @@ def all_careers(request, category_slug=None):
 				  'careers/list.html',
 				  {'category': category,
 					'categories': categories,
-					'careers': careers })
+					'careers': careers,
+					'section': 'home' })
 
 def career_detail(request, id, slug):
 	career = get_object_or_404(Career, id=id, slug=slug)

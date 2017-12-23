@@ -21,6 +21,10 @@ a {
 a:hover {
     color:#77b6e2;
 }
+li.selected a, li.selected a:hover {
+    color:#1b6d32;
+    font-weight:bold;
+}
 
 a.button, input[type="submit"] {
     color:#fff;
@@ -51,15 +55,16 @@ a.button.light {
 
 /* media-object images*/ 
 .cat-images {
-    height: 100px;
-    width: 100px;
+    max-height: 100px;
+    max-width: 100px;
 }
 
 #category-list>li {
-/*    padding-right: 5px;*/
+    padding-right: 5px;
     padding-left: 10px; 
 }
 
 .comment-reply{
     display:none;
 }
+
