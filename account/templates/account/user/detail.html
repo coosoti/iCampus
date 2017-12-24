@@ -1,0 +1,152 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}{{ user.get_full_name }} - iCampus{% endblock %}
+
+{% block page_content %}
+
+<div class="row">
+    <div class="col-xs-12 col-sm-3 left">
+        <div class="panel panel-default">
+            <div class="panel-image hide-panel-body">  
+                <img src="{% static 'images/banner.jpg'%}" class="panel-image-preview">
+            </div>
+            <div class="panel-footer">
+                <div class="row">
+                    <div class="col-sm-2">
+                        <img src="{% static 'images/avatar.png'%}" height="50px" width="50px" class="rounded-img home-avatar">
+                    </div>
+                    <div class="col-sm-10">
+                        <h4 style="text-align: center;">{{ user.get_full_name }}</h4>
+                    </div>
+                    <div class="col-sm-12" style="margin-top: 10px;">
+                        <div class="col-sm-6" style="font-size: 80%; opacity: 0.7;">POSTS<br>
+                            <h6 style="color: #0084B4; font-size: 200%;">100</h6>
+                        </div>
+                        <div class="col-sm-6" style="font-size: 80%; opacity: 0.7;">FOLLOWERS<br>
+                            <h6 style="color: #0084B4; font-size: 200%;">100</h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="panel panel-default">
+          <div class="panel-body">
+             <h5 style="color: grey; font-size: 125%;">Trends</h5>
+              <a href="">#Trend #1</a><br>
+                <span style="color: grey;">31k Posts</span><br><br>
+              <a href="">#Trend #2</a><br>
+                <span style="color: grey;">25k Posts</span><br><br>
+              <a href="">#Trend #3</a><br>
+                <span style="color: grey;">16k Posts</span><br><br>
+          </div>
+        </div>
+    </div>
+
+    <div class="col-xs-12 col-sm-6">
+        <nav class="navbar navbar-default">
+            <div class="container">
+              <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                  <span class="sr-only">Toggle navigation</span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                </button>
+              </div>
+              <div id="navbar" class="navbar-collapse collapse">
+                  <ul class="nav navbar-nav user-nav">
+                    <li><a href="">Timeline</a> </li>
+                    <li><a href="">Courses</a></li>
+                    <li><a href="">Peers</a></li>
+                    <li><a href="">Change Password</a></li>
+                  </ul>
+              </div><!--/.nav-collapse -->
+            </div><!--/.container-fluid -->
+        </nav>
+
+        <div class="panel panel-default post-panel">
+          <div class="panel-body row">
+            
+            <div class="col-sm-1 hidden-xs">
+              <img src="{% static 'images/avatar.png'%}" class="rounded-img" height="50px" width="50px"></img>
+            </div>
+            <div class="col-sm-11">
+              <p class="post-title"><span class="post-owner"><a href="">Charles</a></span> <span class="post-creation">Date of Today</span></p>
+              <p class="post-content">I tell you I hate theee, I hate thee, I hate thee I tell you I hate theee, I hate thee, I hate thee I tell you I hate theee, I hate thee</p>
+            </div>
+            
+            <div class="col-sm-10 col-sm-offset-1">
+              <p class="post-links">
+                <span class="glyphicon glyphicon-comment g-links" aria-hidden="true"></span>
+                <span class="glyphicon glyphicon-retweet g-links" aria-hidden="true"></span>
+                <span class="glyphicon glyphicon-heart g-links" aria-hidden="true"></span>
+                <span class="glyphicon glyphicon-option-horizontal g-links" aria-hidden="true"></span>
+              </p>
+            </div>
+            
+          </div>
+        </div>
+        <div class="panel panel-default post-panel">
+          <div class="panel-body row">
+            <div class="col-sm-1 hidden-xs">
+              <img src="{% static 'images/avatar.png'%}" class="rounded-img" height="50px" width="50px"></img>
+            </div>
+            <div class="col-xs-12 col-sm-11">
+              <p class="post-title"><span class="post-owner"><a href="">Charles</a></span> <span class="post-creation">Date of Today</span></p>
+              <p class="post-content">I tell you I hate theee, I hate thee, I hate thee I tell you I hate theee, I hate thee, I hate thee I tell you I hate theee, I hate thee</p>
+            </div>
+            
+            <div class="col-sm-10 col-sm-offset-1">
+              <p class="post-links">
+                <span class="glyphicon glyphicon-comment g-links" aria-hidden="true"></span>
+                <span class="glyphicon glyphicon-retweet g-links" aria-hidden="true"></span>
+                <span class="glyphicon glyphicon-heart g-links" aria-hidden="true"></span>
+                <span class="glyphicon glyphicon-option-horizontal g-links" aria-hidden="true"></span>
+              </p>
+            </div>
+            
+          </div>
+        </div>
+        <div class="panel panel-default post-panel">
+          <div class="panel-body row">
+            
+            <div class="col-sm-1 hidden-xs">
+              <img src="{% static 'images/avatar.png'%}" class="rounded-img" height="50px" width="50px"></img>
+            </div>
+            <div class="col-sm-11">
+              <p class="post-title"><span class="post-owner"><a href="">Charles</a></span> <span class="post-creation">Date of Today</span></p>
+              <p class="post-content">I tell you I hate theee, I hate thee, I hate thee I tell you I hate theee, I hate thee, I hate thee I tell you I hate theee, I hate thee</p>
+            </div>
+            
+            <div class="col-sm-10 col-sm-offset-1">
+              <p class="post-links">
+                <span class="glyphicon glyphicon-comment g-links" aria-hidden="true"></span>
+                <span class="glyphicon glyphicon-retweet g-links" aria-hidden="true"></span>
+                <span class="glyphicon glyphicon-heart g-links" aria-hidden="true"></span>
+                <span class="glyphicon glyphicon-option-horizontal g-links" aria-hidden="true"></span>
+              </p>
+            </div>
+            
+          </div>
+        </div>
+        
+        <div class="panel panel-default post-panel">
+          <div class="panel-body row">
+            <div class="col-sm-12">
+            <center><img src="{% static 'images/icon.png'%}" height="25px" width="25px"></img>
+              <a href="#top"><p class="opacity: .7;">Back to top <span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span></p></a></center>
+            </div>
+          </div>
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-3">
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <p style="opacity: 0.5; font-size: 90%;">© 2016 Flutter  About  Help  Terms  Privacy  Cookies  Ads Info  Brand  Blog  Status  Apps  Jobs  Advertise  Businesses  Media  Developers</p>
+          </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
