@@ -2,7 +2,9 @@ from django.shortcuts import render, get_object_or_404
 from django.contrib.contenttypes.models import ContentType
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.conf import settings
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
+from common.decorators import ajax_required
 from .models import Category, Career
 from comments.forms import CommentForm
 from comments.models import Comment
@@ -14,7 +16,6 @@ r = redis.StrictRedis(host=settings.REDIS_HOST,
 	                  port=settings.REDIS_PORT,
 	                  db=settings.REDIS_DB)
 
-
 def all_careers(request, category_slug=None):
 	category = None
 	categories = Category.objects.all()
@@ -22,6 +23,25 @@ def all_careers(request, category_slug=None):
 	if category_slug:
 		category = get_object_or_404(Category, slug=category_slug)
 		careers = careers.filter(category=category)
+
+	paginator = Paginator(careers, 3)
+	page = request.GET.get('page')
+	try:
+		careers = paginator.page(page)
+	except PageNotAnInteger:
+		careers = paginator.page(1)
+	except EmptyPage:
+		if request.is_ajax():
+			return HttpResponse('')
+		careers = Paginator.page(paginator.num_pages)
+	if request.is_ajax():
+		return render(request,
+			          'careers/list_ajax.html',
+			          {'category': category,
+			           'categories': categories,
+			           'careers': careers,
+			           'section': 'home' })
+
 	return render(request,
 				  'careers/list.html',
 				  {'category': category,

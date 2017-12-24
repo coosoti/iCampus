@@ -20,64 +20,34 @@
 		</div>
 
 		<div class="col-xs-12 col-sm-6">
-			{% for career in careers %}
-			<div class="panel panel-default post-panel">
-
-			    <div class="panel-body">
-			    	
-			        
-					<div class="media">
-					    <div class="media-left">
-						    <a href="{{ career.get_absolute_url }}">
-						    	<img class="img-responsive cat-images" src="{% if career.image %}{{ career.image.url }}{% else %}{% static 'images/no_image.png'%}{% endif %}">
-						    </a>
-					    </div>
-					    <div class="media-body">
-					        <h4 class="media-heading"><a href="{{ career.get_absolute_url }}">{{ career.name }}</a></h4>
-					        <p>{{ career.summary|truncatewords:20|linebreaks }}</p>
-					        <p><a class="btn btn-primary pull-right" href="{{ career.get_absolute_url }}">Read More</a></p>
-					    </div>
-					</div>
-					
-			    </div>
+			<div id="career-list">
+				{% include "careers/list_ajax.html" %}
 			</div>
-			{% endfor %}
 		</div>
 	</div>	
 {% endblock %}
 
-<!-- {% for career in careers %}
-<div class="media">
-    <div class="media-left">
-	    <a href="{{ career.get_absolute_url }}">
-	    	<img class="img-resposive cat-images" src="{% if career.image %}{{ career.image.url }}{% else %}{% static 'images/no_image.png'%}{% endif %}">
-	    </a>
-    </div>
-    <div class="media-body">
-        <h4 class="media-heading"><a href="{{ career.get_absolute_url }}">{{ career.name }}</a></h4>
-        <p>{{ career.summary|truncatewords:20|linebreaks }}<a class="btn btn-primary pull-right" href="{{ career.get_absolute_url }}">Read More</a></p>
-    </div>
-</div>
-{% endfor %} -->
+{% block domready %}
+    var page = 1;
+    var empty_page = false;
+    var block_request = false;
 
-<!-- <ul class="media-list">
-						{% for career in careers %}
-						<li class="media">
-							<div class="media-left">
-							    <a href="{{ career.get_absolute_url }}">
-									<img class="img-resposive cat-images" src="{% if career.image %}{{ career.image.url }}{% else %}{% static 'images/no_image.png'%}{% endif %}">
-								</a>
-							</div>
-							<div class="media-body">
-						        <h4 class="media-heading"><a href="{{ career.get_absolute_url }}">{{ career.name }}</a></h4>
-						        <p>{{ career.summary|truncatewords:20|linebreaks }}<a class="btn btn-primary pull-right" href="{{ career.get_absolute_url }}">Read More</a></p>
-						    </div>	
-						</li><hr>
-				        {% endfor %}
-			        </ul> -->
+    $(window).scroll(function() {
+        var margin = $(document).height() - $(window).height() - 200;
+        if  ($(window).scrollTop() > margin && empty_page == false && block_request == false) {
+		    block_request = true;
+		    page += 1;
+		    $.get('?page=' + page, function(data) {
+		        if(data == '')
+		        {
+		            empty_page = true;
+		        }
+		        else {
+                    block_request = false;
+                    $('#career-list').append(data);
+    	        }
+            });
+    	}
+    });
+{% endblock %}
 
-			        <!-- 			    <div class="panel-heading">
-			        <h3 class="panel-title">
-			        	{% if category %}{{ category.name }}{% else %}Careers{% endif %}</h1>
-			        </h3>
-			    </div> -->
