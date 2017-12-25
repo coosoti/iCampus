@@ -31,7 +31,8 @@ a.button, input[type="submit"] {
     background:#5993bb;
     border-radius:4px;
     padding:10px 20px;
-    font-size:14px;
+/*    font-size:14px;*/
+    margin-top:-10px;
     border:0;
 }
 

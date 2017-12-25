@@ -72,14 +72,17 @@ body {
     height: 500px;
     margin-top: -21px;
 }
-/*.left {
-    margin-right: -16px;
-    border-radius: 0px;
-}
 
-.center-content {
-    margin-right: -16px;
-    border-radius: 0px;
+.panel-user-actions {
+    padding: 8px !important;
 }
-
+.user-actions {
+    opacity: 0.7;
+    margin-right: 25px;
+    margin-left: 8px;
+}
+.comment-panel {
+    margin-bottom: 0px;
+    border-radius: 0px !important;
+}
 

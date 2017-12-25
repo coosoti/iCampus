@@ -24,7 +24,7 @@ def all_careers(request, category_slug=None):
 		category = get_object_or_404(Category, slug=category_slug)
 		careers = careers.filter(category=category)
 
-	paginator = Paginator(careers, 3)
+	paginator = Paginator(careers, 4)
 	page = request.GET.get('page')
 	try:
 		careers = paginator.page(page)

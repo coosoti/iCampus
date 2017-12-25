@@ -20,13 +20,30 @@
                         <h4 style="text-align: center;">{{ user.get_full_name }}</h4>
                     </div>
                     <div class="col-sm-12" style="margin-top: 10px;">
-                        <div class="col-sm-6" style="font-size: 80%; opacity: 0.7;">POSTS<br>
+                        <div class="col-sm-6" style="font-size: 80%; opacity: 0.7;">COURSES<br>
                             <h6 style="color: #0084B4; font-size: 200%;">100</h6>
                         </div>
-                        <div class="col-sm-6" style="font-size: 80%; opacity: 0.7;">FOLLOWERS<br>
-                            <h6 style="color: #0084B4; font-size: 200%;">100</h6>
+                        <div class="col-sm-6" style="font-size: 80%; opacity: 0.7;">PEERS<br>
+                            <h6 style="color: #0084B4; font-size: 200%;">
+                               {% with total_followers=user.followers.count %}
+                                  <span class="count">
+                                    <span class="total">{{ total_followers }}</span>
+                                  </span>
+                                {% endwith %}  
+                            </h6>
                         </div>
                     </div>
+                    {% if user != request.user %}
+                    <div class="col-sm-12" style="margin-top: 10px;">
+                       <a href="#" data-id="{{ user.id }}" data-action="{% if request.user in user.followers.all %}un{% endif %}follow" class="follow button">
+                        {% if request.user not in user.followers.all %}
+                            Follow
+                        {% else %}
+                            Unfollow
+                        {% endif %}
+                      </a>
+                    </div>
+                    {% endif %}
                 </div>
             </div>
         </div>
@@ -45,7 +62,7 @@
     </div>
 
     <div class="col-xs-12 col-sm-6">
-        <nav class="navbar navbar-default">
+        <nav class="navbar navbar-default post-panel">
             <div class="container">
               <div class="navbar-header">
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -68,7 +85,6 @@
 
         <div class="panel panel-default post-panel">
           <div class="panel-body row">
-            
             <div class="col-sm-1 hidden-xs">
               <img src="{% static 'images/avatar.png'%}" class="rounded-img" height="50px" width="50px"></img>
             </div>
@@ -150,3 +166,29 @@
     </div>
 </div>
 {% endblock %}
+
+{% block domready %}
+    $('a.follow').click(function(e){
+        e.preventDefault();
+        $.post('{% url "user_follow" %}',
+            {
+                id: $(this).data('id'),
+                action: $(this).data('action')
+            },
+            function(data){
+                if (data['status'] == 'ok')
+                {
+                    var previous_action = $('a.follow').data('action');
+
+                    // toggle data-action
+                    $('a.follow').data('action', previous_action == 'follow' ? 'unfollow' : 'follow');
+                    // toggle link text
+                    $('a.follow').text(previous_action == 'follow' ? 'Unfollow' : 'Follow');
+
+                    // update total followers
+                    var previous_followers = parseInt($('span.count .total').text());
+                    $('span.count .total').text(previous_action == 'follow' ? previous_followers + 1 : previous_followers - 1);
+                }
+        });
+    });
+{% endblock %}  

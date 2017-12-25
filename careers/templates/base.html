@@ -44,7 +44,7 @@
                         {% if request.user.is_authenticated %}
                         <li {% if section == "dashboard" %}class="selected"{% endif %}><a href="{% url "dashboard" %}">Dashboard</a></li>
                         <li {% if section == "users" %}class="selected"{% endif %}><a href="{% url "user_list" %}">Find Peers</a></li>  
-                        <li><a href="">{{ request.user.username|capfirst }}</a></li>
+                        <li><a href="{{ request.user.get_absolute_url }}">{{ request.user.username|capfirst }}</a></li>
                         <li><a href="{% url "logout" %}">Logout</a></li>
                         {% else %}
                         <li><a href="{% url "login" %}">Sign In</a></li>
@@ -66,7 +66,7 @@
     <script type="text/javascript" src="{% static 'bootstrap-3.3.7/js/bootstrap.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/bootstrap-tabcollapse.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/sidebar.js' %}"></script>
-    <script src=" http://cdn.jsdelivr.net/jquery.cookie/1.4.1/jquery.cookie.min.js "></script>
+    <script src=" http://cdn.jsdelivr.net/jquery.cookie/1.4.1/jquery.cookie.min.js"></script>
     <script type="text/javascript">
         $(document).ready(function(){
             $(".comment-reply-btn").click(function(event){
