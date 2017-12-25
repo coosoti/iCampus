@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     # personal & installed apps
     'careers',
     'comments',
+    'actions',
     'crispy_forms',
 ]
 

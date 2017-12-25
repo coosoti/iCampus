@@ -8,6 +8,7 @@ from common.decorators import ajax_required
 from .models import Category, Career
 from comments.forms import CommentForm
 from comments.models import Comment
+from actions.utils import create_action
 
 import redis
 
@@ -83,7 +84,9 @@ def career_detail(request, id, slug):
 							content = content_data,
 							parent = parent_obj,
 						)
+		create_action(request.user, 'reviewed', career)
 		return HttpResponseRedirect(new_comment.content_object.get_absolute_url())
+
 	comments = instance.comments
 	total_views = r.incr('career:{}:views'.format(career.id))
 	return render(request, 

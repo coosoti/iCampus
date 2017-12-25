@@ -1,0 +1,25 @@
+{% load static %}
+{% with user=action.user profile=action.user.profile %}
+<div class="col-sm-1 hidden-xs">
+    <img src="{% static 'images/avatar.png'%}" class="rounded-img" height="50px" width="50px"></img>
+</div>
+<div class="col-sm-11">
+    <p class="post-title"><span class="post-owner"><a href="">{{ user.get_full_name }}</a></span> <span class="post-creation">{{ action.created|timesince }} ago</span></p>
+    <p class="post-content">
+        <a href="{{ user.get_absolute_url }}">
+            {{ user.first_name }}
+        </a>
+        {{ action.verb }}
+
+        {% if action.target %}
+            {% with target=action.target %}
+                {% if target != request.user %}
+                    <a href="{{ target.get_absolute_url }}">{{ target }}</a>
+                {% else %}
+                    You
+                {% endif %}    
+            {% endwith %}
+        {% endif %}
+    </p>
+</div>
+{% endwith %}

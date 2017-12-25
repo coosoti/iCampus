@@ -8,6 +8,8 @@ from django.views.decorators.http import require_POST
 from common.decorators import ajax_required
 from .forms import UserRegistrationForm, UserEditForm, ProfileEditForm
 from .models import Profile, Contact
+from actions.models import Action
+from actions.utils import create_action
 
 def register(request):
 	if request.method == 'POST':
@@ -17,6 +19,7 @@ def register(request):
 			new_user.set_password(user_form.cleaned_data['password'])
 			new_user.save()
 			profile = Profile.objects.create(user=new_user)
+			create_action(new_user, 'has updated their account')
 			return render(request,
 						  'account/signup_success.html',
 						  {'new_user': new_user})
@@ -64,7 +67,12 @@ def user_list(request):
 @login_required
 def user_detail(request, username):
 	user = get_object_or_404(User, username=username, is_active=True)
-	return render(request, 'account/user/detail.html', {'user': user, 'section': 'users'})
+	actions = Action.objects.all().exclude(user=request.user)
+	following_ids = request.user.following.values_list('id', flat=True)
+	if following_ids:
+		actions = actions.filter(user_id__in=following_ids).select_related('user', 'user__profile').prefetch_related('target')
+		actions = actions[:10]
+	return render(request, 'account/user/detail.html', {'actions': actions, 'user': user, 'section': 'users'})
 
 @ajax_required
 @require_POST
@@ -78,6 +86,7 @@ def user_follow(request):
             if action == 'follow':
                 Contact.objects.get_or_create(user_from=request.user, 
                 	                          user_to=user)
+                create_action(request.user, 'is following', user)
             else:
                 Contact.objects.filter(user_from=request.user, 
                 	                   user_to=user).delete()
