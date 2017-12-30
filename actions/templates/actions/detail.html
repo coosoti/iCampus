@@ -1,25 +1,55 @@
 {% load static %}
-{% with user=action.user profile=action.user.profile %}
-<div class="col-sm-1 hidden-xs">
-    <img src="{% static 'images/avatar.png'%}" class="rounded-img" height="50px" width="50px"></img>
-</div>
-<div class="col-sm-11">
-    <p class="post-title"><span class="post-owner"><a href="">{{ user.get_full_name }}</a></span> <span class="post-creation">{{ action.created|timesince }} ago</span></p>
-    <p class="post-content">
-        <a href="{{ user.get_absolute_url }}">
-            {{ user.first_name }}
-        </a>
-        {{ action.verb }}
 
-        {% if action.target %}
+{% for action in actions %}
+    <div class="panel panel-default post-panel panel-margin-20">
+      <div class="panel-body">
+        {% with user=action.user profile=action.user.profile %}
+        <div class="row">
+            <div class="col-xs-1">
+                <img src="{% static 'images/avatar.png'%}" class="" height="30px" width="30px"/>
+            </div>
+            <div class="col-xs-10" style="margin-bottom: 0px;">
+                    <a href="{{ user.get_absolute_url }}">
+                        {{ user.get_full_name }}
+                    </a>
+                    {{ action.verb }}
+
+                    {% if action.target %}
+                        {% with target=action.target %}
+                            {% if target != request.user %}
+                                <a href="{{ target.get_absolute_url }}">{{ target.get_full_name }}</a>
+                            {% else %}
+                                You
+                            {% endif %}    
+                        {% endwith %}
+                    {% endif %}
+            <p class=""><span class="post-creation">{{ action.created|timesince }} ago</span></p>
             {% with target=action.target %}
-                {% if target != request.user %}
-                    <a href="{{ target.get_absolute_url }}">{{ target }}</a>
-                {% else %}
-                    You
-                {% endif %}    
+           <div class="panel panel-default post-panel ">
+            <div class="panel-body">
+                <div class="media">
+                    <div class="media-left">
+                        <a href="#">
+                            <img class="media-object img-responsive cat-images" src="{% static 'images/banner.jpg'%}" alt="...">
+                        </a>
+                    </div>
+                    <div class="media-body">
+                        <h4 class="media-heading"><a href="{{ target.get_absolute_url }}" class="title">{{ target.get_full_name }}</a></h4>
+                        {% with total_following=target.following.count %}
+                            <span class="">
+                                <span class="">{{ total_following }}</span>
+                                Peer{{ total_following|pluralize }}
+                            </span>
+                          {% endwith %}
+                    </div>
+                </div>
+                </div>
+            </div>
             {% endwith %}
-        {% endif %}
-    </p>
-</div>
-{% endwith %}
+              </div>
+
+        </div>
+        {% endwith %}
+      </div>
+    </div>
+{% endfor %}

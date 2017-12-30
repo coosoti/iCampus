@@ -72,7 +72,7 @@ def user_detail(request, username):
 	if following_ids:
 		actions = actions.filter(user_id__in=following_ids).select_related('user', 'user__profile').prefetch_related('target')
 		actions = actions[:10]
-	return render(request, 'account/user/detail.html', {'actions': actions, 'user': user, 'section': 'users'})
+	return render(request, 'account/user/detail.html', {'actions': actions, 'user': user, 'section': 'user'})
 
 @ajax_required
 @require_POST
