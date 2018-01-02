@@ -6,6 +6,7 @@ from comments.models import Comment
 
 
 class Category(models.Model):
+    id = models.IntegerField(primary_key=True, db_index=True, unique=True)
     name = models.CharField(max_length=200, db_index=True)
     slug = models.SlugField(max_length=200, db_index=True, unique=True)
 
@@ -21,14 +22,15 @@ class Category(models.Model):
         return reverse('careers:all_careers_by_category', args=[self.slug])
 
 class Career(models.Model):
-    category = models.ForeignKey(Category, related_name='careers')
+    category = models.ForeignKey(Category, blank=True, related_name='careers')
+    id = models.IntegerField(primary_key=True, db_index=True, unique=True)
     image = models.ImageField(upload_to='products/%Y/%m/%d', blank=True)
     name = models.CharField(max_length=200,db_index=True)
-    slug = models.SlugField(max_length=200, db_index=True, unique=True)
+    slug = models.SlugField(max_length=200, db_index=True, blank=True)
     summary = models.TextField(blank=True)
-    duties =  models.TextField(blank=True)
-    learning_path =  models.TextField(blank=True)
-    work_environment = models.TextField(blank=True)
+    # duties =  models.TextField(blank=True)
+    # learning_path =  models.TextField(blank=True)
+    # work_environment = models.TextField(blank=True)
 
     class Meta:
         ordering = ('name',)
@@ -53,4 +55,11 @@ class Career(models.Model):
         return content_type    
 
 
+class Task(models.Model):
+    career = models.ForeignKey(Career, blank=True, related_name='tasks')
+    id = models.IntegerField(primary_key=True, db_index=True, unique=True)
+    task = models.TextField(blank=True)
+    task_type = models.CharField(max_length=200, blank=True, null=True)
 
+    def __str__(self):
+        return self.task
