@@ -254,3 +254,7 @@ body {
     z-index: 9;
 }
 
+.task-table {
+    margin-right: -21px;
+    margin-left: -20px;
+}

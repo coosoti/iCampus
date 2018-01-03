@@ -10,23 +10,32 @@
             <div class="panel-body">
                 <h4 class="breadcrumb">{{ career.name }}</h4>
                 <div class="card-tabs">
-                    <ul id="myTab" class='nav nav-tabs nav-justified '>
-                        <li class="active"><a href="#overview" data-toggle="tab">Summary</a></li>
-                        <li><a href="#duties" data-toggle="tab">Duties</a></li>
-                        <li><a href="#education" data-toggle="tab">Learning Path</a></li>
-                        <li><a href="#work-environment" data-toggle="tab">Environment</a></li>
+                    <ul id="myTab" class='nav nav-tabs' role="tablist">
+                        <li role="presentation" class="active"><a href="#overview" data-toggle="tab">Summary</a></li>
+                        <li role="presentation"><a href="#duties" data-toggle="tab">Duties</a></li>
+                        <li role="presentation" ><a href="#education" data-toggle="tab">Learning Path</a></li>
+                        <li role="presentation"><a href="#work-environment" data-toggle="tab">Environment</a></li>
                     </ul>
                     <div class="tab-content" style="margin-top: -33px;">
-                        <div class="tab-pane fade in active" id="overview">
+                        <div role="tabpanel" class="tab-pane fade in active" id="overview">
                             <p>{{ career.summary|linebreaks }}</p>
                         </div>
-                        <div class="tab-pane fade" id="duties">
-                            <p>{{ career.duties|linebreaks }}</p>
+                        <div role="tabpanel" class="tab-pane fade" id="duties">
+                            <div class="task-table">
+                                <table class="table">
+                                {% for task in tasks %}    
+                                    <tr>
+                                        <td class="col-xs-1"><i class="fa fa-plus-square-o" aria-hidden="true"></i></td>
+                                        <td>{{task.task|linebreaks }}</td>
+                                    </tr>
+                                {% endfor %}    
+                                </table>
+                            </div>
                         </div>
-                        <div class="tab-pane fade" id="education">
+                        <div role="tabpanel" class="tab-pane fade" id="education">
                             <p>{{ career.learning_path|linebreaks }}</p>
                         </div>
-                        <div class="tab-pane fade" id="work-environment">
+                        <div role="tabpanel" class="tab-pane fade" id="work-environment">
                             <p>{{ career.work_environment|linebreaks }}</p>
                         </div>
                     </div>

@@ -5,7 +5,7 @@ from django.conf import settings
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from common.decorators import ajax_required
-from .models import Category, Career
+from .models import Category, Career, Task
 from comments.forms import CommentForm
 from comments.models import Comment
 from actions.utils import create_action
@@ -86,7 +86,7 @@ def career_detail(request, id, slug):
 						)
 		create_action(request.user, 'reviewed', career)
 		return HttpResponseRedirect(new_comment.content_object.get_absolute_url())
-
+	tasks = Task.objects.filter(career=career)	
 	comments = instance.comments
 	total_views = r.incr('career:{}:views'.format(career.id))
 	return render(request, 
@@ -94,4 +94,5 @@ def career_detail(request, id, slug):
 				  {'career': career,
 				  'comments': comments,
 				  'comment_form': form,
-				  'total_views': total_views })
+				  'total_views': total_views,
+				  'tasks': tasks })
