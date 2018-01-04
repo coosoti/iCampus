@@ -7,6 +7,13 @@ from import_export import fields
 
 from .models import Category, Career, Task
 
+class CategoryResource(ModelResource):
+	class Meta:
+		model = Category
+
+	def for_delete(self, row, instance):
+		return self.fields['name'].clean(row) == ''
+
 class CareerResource(ModelResource):
 	category = fields.Field(
 		        column_name='category',
@@ -29,7 +36,7 @@ class TaskResource(ModelResource):
 	def for_delete(self, row, instance):
 		return self.fields['task'].clean(row) == ''
 
-class CategoryAdmin(admin.ModelAdmin):
+class CategoryAdmin(ImportExportMixin, admin.ModelAdmin):
     list_display = ['id', 'name', 'slug']
     prepopulated_fields = {'slug': ('name', )}
 admin.site.register(Category, CategoryAdmin)
