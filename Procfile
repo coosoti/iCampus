@@ -1,0 +1,1 @@
+web: gunicorn iCampus.wsgi --log-file -
