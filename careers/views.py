@@ -88,11 +88,11 @@ def career_detail(request, id, slug):
 		return HttpResponseRedirect(new_comment.content_object.get_absolute_url())
 	tasks = Task.objects.filter(career=career)	
 	comments = instance.comments
-	total_views = r.incr('career:{}:views'.format(career.id))
+	# total_views = r.incr('career:{}:views'.format(career.id))
 	return render(request, 
 				  'careers/detail.html',
 				  {'career': career,
 				  'comments': comments,
 				  'comment_form': form,
-				  'total_views': total_views,
+				  # 'total_views': total_views,
 				  'tasks': tasks })
