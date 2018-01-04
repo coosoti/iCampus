@@ -25,7 +25,7 @@ SECRET_KEY = '8bf&2r@$s!mw$n8nbnzs&tnbt7^fg0zyf+ukl1y5_%(+9p+zeh'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['rocky-wave-34456.herokuapp.com', '*']
 
 
 # Application definition
@@ -151,7 +151,7 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
 STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
-    
+
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
 
 STATIC_URL = '/static/'
