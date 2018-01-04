@@ -14,6 +14,10 @@ import os
 
 import dj_database_url
 
+import redis
+
+import urlparse
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -112,11 +116,23 @@ DATABASES['default'].update(db_from_env)
 
 
 # Redis Settings
+r = redis.from_url(os.environ.get("REDIS_URL"))
 
 REDIS_HOST = 'localhost'
 REDIS_PORT = 6379
 REDIS_DB = 0
 
+redis_url = urlparse.urlparse(os.environ.get('REDIS_URL'))
+CACHES = {
+    "default": {
+        "BACKEND": "redis_cache.RedisCache",
+        "LOCATION": "{0}:{1}".format(redis_url.hostname, redis_url.port),
+        "OPTIONS": {
+            "PASSWORD": redis_url.password,
+            "DB": 0,
+        }
+    }
+}
 # Password validation
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators
 
