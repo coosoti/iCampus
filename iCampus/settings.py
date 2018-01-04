@@ -101,7 +101,7 @@ DATABASES = {
         'USER': 'icampusadmin',
         'PASSWORD': 'password',
         'HOST': 'localhost',
-        'PORT': '',
+        'PORT': '5432',
     }
 }
 # Redis Settings
