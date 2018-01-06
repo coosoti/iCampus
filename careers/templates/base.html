@@ -24,13 +24,11 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="#">iCampus</a>
+                    <a class="navbar-brand" href="/">iCampus</a>
                 </div>
                 <div id="navbar" class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
-                        <li {% if section == "home" %}class="selected"{% endif %}><a href="/">Home</a></li>
-                        <li {% if section == "my-home" %}class="selected"{% endif %}><a href="">About</a></li>
-                                   
+                        <li {% if section == "home" %}class="selected"{% endif %}><a href="/"><i class="fa fa-home" aria-hidden="true"></i> Home</a></li>      
                     </ul>
                     <form class="navbar-form navbar-left" role="search">
                         <div class="input-group">
@@ -47,9 +45,9 @@
                         <li {% if section == "user" %}class="selected"{% endif %}>
                             <ul class="nav navbar-nav">
                                 <li class="dropdown">
-                                  <a href="{{ request.user.get_absolute_url }}" class="dropdown-toggle" data-toggle="dropdown">{{ request.user.username|capfirst }}</a>
+                                  <a href="{{ request.user.get_absolute_url }}" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user-circle" aria-hidden="true"></i> {{ request.user.username|capfirst }}</a>
                                   <ul class="dropdown-menu">
-                                    <li><a href="{{ request.user.get_absolute_url }}">My Profile</a></li>
+                                    <li><a href="{{ request.user.get_absolute_url }}">My Profile<i class="fa fa-user-circle pull-right" aria-hidden="true"></i></a></li>
                                     <li class="divider"></li>
                                     <li><a href="{% url "edit" %}">Account Settings <span class="glyphicon glyphicon-cog pull-right"></span></a></li>
                                     <li class="divider"></li>
@@ -63,8 +61,8 @@
                             </ul>
                         </li>
                         {% else %}
-                        <li><a href="{% url "login" %}">Sign In</a></li>
-                        <li><a href="{% url "register" %}">Register</a></li>
+                        <li><a href="{% url "login" %}"><i class="fa fa-sign-in" aria-hidden="true"></i> Sign In</a></li>
+                        <li><a href="{% url "register" %}"><i class="fa fa-user-plus" aria-hidden="true"></i> Register</a></li>
                         {% endif %}
                   </ul>
                 </div><!--/.nav-collapse -->
@@ -82,7 +80,7 @@
     <script type="text/javascript" src="{% static 'bootstrap-3.3.7/js/bootstrap.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/bootstrap-tabcollapse.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/jquery-ui.min.js' %}"></script>
-    <script src=" http://cdn.jsdelivr.net/jquery.cookie/1.4.1/jquery.cookie.min.js"></script>
+    <script src=" https://cdn.jsdelivr.net/jquery.cookie/1.4.1/jquery.cookie.min.js"></script>
     <script type="text/javascript">
         $(document).ready(function(){
             $(".comment-reply-btn").click(function(event){

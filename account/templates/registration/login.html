@@ -4,25 +4,37 @@
 {% block title %} Login - iCampus{% endblock %}
 
 {% block page_content %}
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"></span></button>
-                <h4 class="modal-title text-center" id="myModalLabel">Login</h4>
-           </div>
-	        <div class="modal-body">
-		        <form action="{% url 'login' %}" method="post">
-					{{form|crispy }}
-					{% csrf_token %}
-					<input type="hidden" name="next" value="{{ next }}">
-					<div class="form-group">
-						<p><input type="submit" value="Login"> | <a href="{% url 'password_reset' %}">Forgotten your password?</a></p>	
-					</div>	
-				</form>
+<div class="row" style="margin-top: -40px;">
+	<div class="container">
+		<div class="col-xs-12 col-sm-2">
+			<div >
+				<a href="/" class="btn btn-default">&laquo; Home</a>
 			</div>
-	        <div class="modal-footer">
-				<p class="text-center">Don't have an account? <a href="{% url 'register' %}">Register</a></p>
-            </div>
-        </div>    
-    </div>    
+		</div>
+		
+		<div class=" col-xs-12 col-sm-6 col-sm-Offset-3">
+		    <div class="modal-dialog" role="document">
+		        <div class="modal-content">
+		            <div class="modal-header">
+		                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"></span></button>
+		                <h4 class="modal-title text-center" id="myModalLabel">Login</h4>
+		           </div>
+			        <div class="modal-body">
+				        <form action="{% url 'login' %}" method="post">
+							{{form|crispy }}
+							{% csrf_token %}
+							<input type="hidden" name="next" value="{{ next }}">
+							<div class="form-group">
+								<p><input type="submit" value="Login"> | <a href="{% url 'password_reset' %}">Forgotten your password?</a></p>	
+							</div>	
+						</form>
+					</div>
+			        <div class="modal-footer">
+						<p class="text-center">Don't have an account? <a href="{% url 'register' %}">Register</a></p>
+		            </div>
+		        </div>
+	        </div>    
+	    </div>
+    </div>
+</div>	    
 {% endblock %}

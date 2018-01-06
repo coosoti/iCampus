@@ -25,7 +25,7 @@ def all_careers(request, category_slug=None):
 		category = get_object_or_404(Category, slug=category_slug)
 		careers = careers.filter(category=category)
 
-	paginator = Paginator(careers, 4)
+	paginator = Paginator(careers, 20)
 	page = request.GET.get('page')
 	try:
 		careers = paginator.page(page)
@@ -96,3 +96,26 @@ def career_detail(request, id, slug):
 				  'comment_form': form,
 				  # 'total_views': total_views,
 				  'tasks': tasks })
+
+
+
+
+
+
+# class CareerSearchListView(ListView):
+#     model = Career
+#     paginate_by = 10
+
+#     def get_queryset(self):
+#         qs = Blog.objects.published()
+
+#         keywords = self.request.GET.get('q')
+#         if keywords:
+#             query = SearchQuery(keywords)
+#             title_vector = SearchVector('title', weight='A')
+#             content_vector = SearchVector('content', weight='B')
+#             vectors = title_vector + content_vector
+#             qs = qs.annotate(search=vectors).filter(search=query)
+#             qs = qs.annotate(rank=SearchRank(vectors, query)).order_by('-rank')
+
+#         return qs

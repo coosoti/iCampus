@@ -4,23 +4,32 @@
 {% block title %} Register - iCampus{% endblock %}
 
 {% block page_content %}
-    <div id="signup" class="modal-dialog" role="document" style="margin-top: -65px;">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"></span></button>
-                <h4 class="modal-title text-center" id="myModalLabel">Create an Account</h4>
-            </div>
-            <div class="modal-body">
-		        <form action="{% url 'register' %}" method="post">
-					{{ user_form|crispy }}
-					{% csrf_token %}
-					<input class="btn-sm" type="submit" value="Register">
-				</form>
-		    </div>
-	        <div class="modal-footer">
-				<p class="text-center">Already a Member?<a href="{% url 'login' %}"> Login</a></p>	
-            </div>
-        </div>    
+<div class="row" style="margin-top: -65px;">
+    <div class="col-xs-12 col-sm-2">
+        <div>
+            <a href="/" class="btn btn-default">&laquo; Home</a>
+        </div>
     </div>
+    <div class="col-xs-12 col-sm-6 col-sm-Offset-3">
+        <div id="signup" class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"></span></button>
+                    <h4 class="modal-title text-center" id="myModalLabel">Create an Account</h4>
+                </div>
+                <div class="modal-body">
+    		        <form action="{% url 'register' %}" method="post">
+    					{{ user_form|crispy }}
+    					{% csrf_token %}
+    					<input class="btn-sm" type="submit" value="Register">
+    				</form>
+    		    </div>
+    	        <div class="modal-footer">
+    				<p class="text-center">Already a Member?<a href="{% url 'login' %}"> Login</a></p>	
+                </div>
+            </div>    
+        </div>
+    </div>
+</div>    
 	
 {% endblock %}

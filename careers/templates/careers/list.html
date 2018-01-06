@@ -5,21 +5,28 @@
 
 {% block page_content %}
 	<div class="row">
-		<div class="col-xs-12 col-sm-3">
+		<div id="sidebar" class="col-xs-12 col-sm-3" style="overflow: hidden;">
 			<ul class="list-group" id="category-list">
-				<li class="list-group-item disabled">Categories</li>
-				<li class="list-group-item selected">
-					<a href="{% url "careers:all_careers" %}">All</a>
-				</li>
-				{% for c in categories %}
-					<li class="list-group-item">
-						<a href="{{ c.get_absolute_url }}">{{ c.name}}</a>
+				<li class="list-group-item disabled"><strong>Categories</strong></li>
+				<div class="list-body">
+					<li {% if not category %} id="cat-selected"{% endif %} class="list-group-item">
+						<a href="{% url "careers:all_careers" %}"><i class="glyphicon glyphicon-play"></i>All</a>
 					</li>
-				{% endfor %}
+					{% for c in categories %}
+						<li {% if category.slug == c.slug %} id="cat-selected"{% endif %} class="list-group-item">
+							<a href="{{ c.get_absolute_url }}"><i class="glyphicon glyphicon-play"></i>{{ c.name}}</a>
+						</li>
+					{% endfor %}
+				</div>
 			</ul>
 		</div>
 
 		<div class="col-xs-12 col-sm-6">
+			<div class="panel panel-default post-panel">
+			    <div class="panel-body">
+			    	<strong>{% if category %}{{ category.name }} Career Options{% else %}All Careers{% endif %} &raquo;</strong>
+			    </div>
+			</div>
 			<div id="career-list">
 				{% include "careers/list_ajax.html" %}
 			</div>
