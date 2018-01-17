@@ -1,4 +1,5 @@
 from django.core.urlresolvers import reverse
+from django.conf import settings
 from django.db import models
 from django.contrib.contenttypes.models import ContentType
 
@@ -28,6 +29,7 @@ class Career(models.Model):
     name = models.CharField(max_length=200,db_index=True)
     slug = models.SlugField(max_length=200, db_index=True, blank=True)
     summary = models.TextField(blank=True)
+    upvotes = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='careers_upvoted', blank=True)
     # duties =  models.TextField(blank=True)
     # learning_path =  models.TextField(blank=True)
     # work_environment = models.TextField(blank=True)

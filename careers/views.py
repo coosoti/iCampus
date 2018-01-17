@@ -1,8 +1,10 @@
 from django.shortcuts import render, get_object_or_404
 from django.contrib.contenttypes.models import ContentType
-from django.http import HttpResponse, HttpResponseRedirect, Http404
+from django.http import HttpResponse, HttpResponseRedirect, Http404, JsonResponse
 from django.conf import settings
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.views.decorators.http import require_POST
+from django.contrib.auth.decorators import login_required
 
 from common.decorators import ajax_required
 from .models import Category, Career, Task
@@ -97,10 +99,23 @@ def career_detail(request, id, slug):
 				  # 'total_views': total_views,
 				  'tasks': tasks })
 
-
-
-
-
+@ajax_required
+@login_required
+@require_POST
+def career_vote(request):
+	career_id = request.POST.get('id')
+	action = request.POST.get('action')
+	if career_id and action:
+		try:
+			career = Career.objects.get(id=career_id)
+			if action == 'like':
+				career.upvotes.add(request.user)
+			else:
+				career.upvotes.remove(request.user)
+			return JsonResponse({'status':'ok'})
+		except:
+			pass
+	return JsonResponse({'status':'ko'})
 
 # class CareerSearchListView(ListView):
 #     model = Career
@@ -108,7 +123,6 @@ def career_detail(request, id, slug):
 
 #     def get_queryset(self):
 #         qs = Blog.objects.published()
-
 #         keywords = self.request.GET.get('q')
 #         if keywords:
 #             query = SearchQuery(keywords)
@@ -117,5 +131,4 @@ def career_detail(request, id, slug):
 #             vectors = title_vector + content_vector
 #             qs = qs.annotate(search=vectors).filter(search=query)
 #             qs = qs.annotate(rank=SearchRank(vectors, query)).order_by('-rank')
-
 #         return qs
