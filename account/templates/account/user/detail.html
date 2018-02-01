@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block title %}{{ user.get_full_name|capfirst }} - iCampus{% endblock %}
+{% block title %}{{ user.username|capfirst }} - iCampus{% endblock %}
 
 {% block page_content %}
 
@@ -10,10 +10,13 @@
         <div class="card hovercard">
             <div class="card-background">
                 <img class="card-bkimg" alt="" src="{% static 'images/user-pic.jpg'%}">
-                <!-- http://lorempixel.com/850/280/people/9/ -->
             </div>
             <div class="useravatar">
-                <img alt="" src="">
+                {% if user.profile.photo %}
+                    <img alt="" src="{{ user.profile.photo.url }}">
+                {% else %}
+                    <img src="{% static 'images/avatar.png'%}" class="" height="50px" width="50px">
+                {% endif %}
             </div><br>
             <div class="card-info">
                 <span class="card-title">{{ user.get_full_name }}</span><br>
@@ -110,8 +113,7 @@
     <div class="col-xs-12 col-sm-3">
         <div class="panel panel-default">
           <div class="panel-body">
-            <p class="text-center" style="opacity: 0.5; font-size: 90%;">© 2017 i
-            Campus</p>
+            <p class="text-center" style="opacity: 0.5; font-size: 90%;">© 2017 iCampus</p>
           </div>
         </div>
     </div>

@@ -2,8 +2,9 @@ from django.shortcuts import render, get_object_or_404
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 from django.views.decorators.http import require_POST
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from common.decorators import ajax_required
 from .forms import UserRegistrationForm, UserEditForm, ProfileEditForm
@@ -61,6 +62,22 @@ def edit(request):
 @login_required
 def user_list(request):
 	users = User.objects.filter(is_active=True)
+	paginator = Paginator(users, 15)
+	page = request.GET.get('page')
+	try:
+		users = paginator.page(page)
+	except PageNotAnInteger:
+		users = paginator.page(1)
+	except EmptyPage:
+		if request.is_ajax():
+			return HttpResponse('')
+		users = Paginator.page(paginator.num_pages)
+	if request.is_ajax():
+		return render(request,
+			          'account/user/list_ajax.html',
+			          {'users': users,
+			           'section': 'users' })
+
 	return render(request, 'account/user/list.html', {'users': users, 'section': 'users' })
 
 

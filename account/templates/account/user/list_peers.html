@@ -7,11 +7,11 @@
                 <div class="media">
                     <div class="media-left">
                         <a href="#">
-                            <img class="media-object img-responsive cat-images" src="{% static 'images/banner.jpg'%}" alt="...">
+                            <img class="media-object" height="50px" width="50px" src="{% static 'images/banner.jpg'%}" alt="...">
                         </a>
                     </div>
                     <div class="media-body">
-                        <h4 class="media-heading"><a href="{{ user.get_absolute_url }}" class="title">{{ user.get_full_name }}</a></h4>
+                        <h4 class="media-heading"><a href="{{ user.get_absolute_url }}" class="title">{{ user.get_full_name | capfirst }}</a></h4>
                         {% with total_following=user.following.count %}
                             <span class="">
                                 <span class="">{{ total_following }}</span>
@@ -25,25 +25,3 @@
     {% endif %}
 {% endfor %}
 
-
-<!-- <div class="row">
-            <div class="col-sm-1 hidden-xs">
-                <img src="{% static 'images/avatar.png'%}" class="rounded-img img-responsive" max-height="50px" max-width="50px"></img>
-            </div>
-            <div class="col-sm-11">
-                <p class="post-title">
-                    <span class="post-owner">
-                       <a href="{{ user.get_absolute_url }}" class="title">{{ user.get_full_name }}</a>
-                    </span>
-                </p>
-                <p class="post-content">
-                  {% with total_following=user.following.count %}
-                    <span class="">
-                        <span class="">{{ total_following }}</span>
-                        Peer{{ total_following|pluralize }}
-                    </span>
-                  {% endwith %}
-                </p>
-            </div>   -->                 
-<!--         </div>
-    </div> -->

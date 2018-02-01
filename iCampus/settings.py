@@ -45,13 +45,13 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.admin',
 
-
     # personal & installed apps
     'careers',
     'comments',
     'actions',
     'crispy_forms',
     'import_export',
+    'sorl.thumbnail',
 ]
 
 MIDDLEWARE = [

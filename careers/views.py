@@ -5,6 +5,7 @@ from django.conf import settings
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.views.decorators.http import require_POST
 from django.contrib.auth.decorators import login_required
+from django.db.models import Q
 
 from common.decorators import ajax_required
 from .models import Category, Career, Task
@@ -26,9 +27,16 @@ def all_careers(request, category_slug=None):
 	if category_slug:
 		category = get_object_or_404(Category, slug=category_slug)
 		careers = careers.filter(category=category)
+	query = request.GET.get("q")	
+	if query:
+		careers = careers.filter(
+					Q(name__icontains=query)|
+					Q(summary__icontains=query)
+					).distinct()
 
 	paginator = Paginator(careers, 20)
 	page = request.GET.get('page')
+
 	try:
 		careers = paginator.page(page)
 	except PageNotAnInteger:
@@ -51,6 +59,7 @@ def all_careers(request, category_slug=None):
 					'categories': categories,
 					'careers': careers,
 					'section': 'home' })
+
 
 def career_detail(request, id, slug):
 	career = get_object_or_404(Career, id=id, slug=slug)

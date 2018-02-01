@@ -7,39 +7,9 @@
 {% block page_content %}
 <div class="row">
     <div class="col-xs-12 col-sm-6 col-sm-offset-3">
-        {% for user in users %}
-            {% if user != request.user %}
-            <div class="panel panel-default post-panel">
-                <div class="panel-body row">
-                    <div class="col-sm-1 hidden-xs">
-                      <img src="{% static 'images/avatar.png'%}" class="rounded-img img-responsive" max-height="50px" max-width="50px"></img>
-                    </div>
-                    <div class="col-sm-11">
-                        <p class="post-title">
-                            <span class="post-owner">
-                               <a href="{{ user.get_absolute_url }}" class="title">{{ user.get_full_name }}</a>
-                            </span>
-
-                            {% if request.user in user.followers.all %}
-                            <button class="btn btn-default btn-primary pull-right">
-                                Following
-                            </button>
-                            {% endif %}
-                        </p>
-                        <p class="post-content">
-                          {% with total_followers=user.followers.count %}
-                            <span class="">
-                                  <span class="">{{ total_followers }}</span>
-                                  Peer{{ total_followers|pluralize }}
-                            </span>
-                          {% endwith %}
-                      </p>
-                    </div>                   
-                </div>
-            </div>
-            {% endif %}
-        {% endfor %}
-                
+        <div id="users-list">
+            {% include "account/user/list_ajax.html" %}
+        </div>      
         <div class="panel panel-default post-panel">
             <div class="panel-body row">
                 <div class="col-sm-12">
@@ -59,4 +29,27 @@
 </div>
 {% endblock %}
 
+{% block domready %}
+    var page = 1;
+    var empty_page = false;
+    var block_request = false;
+
+    $(window).scroll(function() {
+        var margin = $(document).height() - $(window).height() - 200;
+        if  ($(window).scrollTop() > margin && empty_page == false && block_request == false) {
+            block_request = true;
+            page += 1;
+            $.get('?page=' + page, function(data) {
+                if(data == '')
+                {
+                    empty_page = true;
+                }
+                else {
+                    block_request = false;
+                    $('#users-list').append(data);
+                }
+            });
+        }
+    });
+{% endblock %}
   

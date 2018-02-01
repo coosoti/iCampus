@@ -1,0 +1,74 @@
+{% load static %}
+{% load thumbnail %}
+
+{% for user in users %}
+    {% if user != request.user %}
+<!--     <div class="panel panel-default post-panel">
+        <div class="panel-body row">
+            <div class="col-xs-1">
+                {% if not user.profile.photo %}
+                    <img src="{% static 'images/avatar.png'%}" class="rounded-img img-responsive" max-height="50px" max-width="50px">
+                {% else %}
+                    <img class="rounded-img img-responsive" src="{{ user.profile.photo.url }}" max-height="50px" max-width="50px">
+                {% endif %}    
+            </div>
+            <div class="col-sm-11">
+                <p class="post-title">
+                    <span class="post-owner">
+                       <a href="{{ user.get_absolute_url }}" class="title">{{ user.get_full_name|capfirst }}</a>
+                    </span>
+
+                    {% if request.user in user.followers.all %}
+                    <button class="btn btn-default btn-sm btn-primary pull-right">
+                        Following
+                    </button>
+                    {% endif %}
+                </p>
+                <p class="post-content">
+                  {% with total_followers=user.followers.count %} 
+                    <span class="">
+                            <span class="">{{ total_followers }}</span>
+                          Peer{{ total_followers|pluralize }}
+                    </span>
+                  {% endwith %}
+                </p>
+            </div>                   
+        </div>
+    </div> -->
+
+        <div class="panel panel-default post-panel">
+            <div class="panel-body row">
+                <div class="media">
+                    <div class="media-left">
+                        <a href="">
+                            {% if not user.profile.photo %}
+                                <img src="{% static 'images/avatar.png'%}" class="media-object img-circle" height="50px" width="50px">
+                            {% else %}
+                                <img class="media-object img-circle" src="{{ user.profile.photo.url }}" height="50px" width="50px">
+                            {% endif %}
+                        </a>
+                    </div>
+                    <div class="media-body">
+                        <h4 class="media-heading">
+                            <a href="{{ user.get_absolute_url }}" class="title">{{ user.get_full_name | capfirst }}</a>
+                            {% if request.user in user.followers.all %}
+                                <button class="btn btn-default btn-sm btn-primary pull-right">
+                                    Following
+                                </button>
+                            {% endif %}
+                        </h4>
+                        <p><small>I aspire to be the best Network 
+                            Engineer</small>  
+                        </p>
+                        {% with total_following=user.following.count %}
+                            <span class="">
+                                <span class="">{{ total_following }}</span>
+                                Peer{{ total_following|pluralize }}
+                            </span>
+                          {% endwith %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+{% endfor %}
